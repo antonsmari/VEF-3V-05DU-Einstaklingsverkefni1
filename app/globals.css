@@ -1,26 +1,268 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}
+
+/* ========== Base reset ========== */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-family: var(--font-geist-sans), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.5;
+    background: var(--background);
+    color: var(--foreground);
+}
+
+header {
+    padding: 16px;
+    border-bottom: 1px solid var(--foreground);
+}
+
+header nav {
+    display: flex;
+    gap: 12px;
+}
+
+/* ========== Typography ========== */
+h1,
+h2,
+h3 {
+    line-height: 1.15;
+    margin: 0 0 0.6rem 0;
+}
+
+p {
+    margin: 0 0 1rem 0;
+    opacity: 0.9;
+}
+
+/* ========== Links ========== */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ========== Layout helpers ========== */
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+/* ========== Header / Nav ========== */
+.site-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    background: var(--background);
+    backdrop-filter: blur(8px);
+}
+
+.site-nav {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 16px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.brand {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.nav-link {
+    opacity: 0.85;
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+/* ========== Form controls ========== */
+input,
+button {
+    font: inherit;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--foreground);
+    background: var(--background);
+    color: inherit;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+input::placeholder {
+    opacity: 0.6;
+}
+
+input:focus {
+    border-color: pink;
+}
+
+/* ========== Lists ========== */
+ul {
+    margin: 12px 0 0 0;
+    padding-left: 18px;
+}
+
+li {
+    margin: 6px 0;
+}
+
+.muted {
+    opacity: 0.7;
+}
+
+/* ========== Small utility spacing ========== */
+.stack-12 > * + * {
+    margin-top: 12px;
+}
+
+.stack-16 > * + * {
+    margin-top: 16px;
+}
+
+.stack-24 > * + * {
+    margin-top: 24px;
+}
+
+/* ========== Media grid card ========== */
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+}
+
+.media-card {
+    display: block;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--background);
+    border: 1px solid var(--foreground);
+    transition: transform 120ms ease, border-color 120ms ease;
+}
+
+.media-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.18);
+    text-decoration: none;
+}
+
+.media-poster {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: var(--background);
+}
+
+.media-fallback {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+.media-meta {
+    padding: 10px 10px 12px;
+}
+
+.media-title {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.media-date {
+    margin-top: 2px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* ========== Movie / Show details page ========== */
+.movie-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 700px) {
+    .movie-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.movie-poster {
+    position: relative;
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 2 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--background);
+}
+
+.movie-info h1 {
+    margin: 0;
+}
+
+.movie-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.genre-chip {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--background);
+}
+
+/* ========== Movies / Shows overview ========== */
+.page-title {
+    margin-top: 0;
+}
+
+.pager {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
 }
