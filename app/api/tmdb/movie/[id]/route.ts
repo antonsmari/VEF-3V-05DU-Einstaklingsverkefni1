@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { getMovieById } from "@/services/tmdb/endpoints";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
-    const id = parseInt(params.id, 10);
+export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const id = parseInt((await params).id, 10);
 
     if ( ! Number.isInteger(id) || id <= 0) {
         return NextResponse.json({ error: "Invalid id" }, { status: 400 });

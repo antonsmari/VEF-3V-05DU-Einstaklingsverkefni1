@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { searchMovies, searchShows } from "@/services/tmdb/endpoints";
 import { MediaItem } from "@/components/MediaGrid";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
     const sp = new URL(req.url).searchParams;
     let query = (sp.get("query") ?? "").trim();
     const page = parseInt(sp.get("page") ?? "1", 10);
